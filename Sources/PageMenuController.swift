@@ -71,7 +71,7 @@ open class PageMenuController: UIViewController {
     fileprivate var beforeIndex: Int?
 
     /// TabMenuView for custom layout
-    public var tabMenuView: UIView {
+    public var tabMenuView: TabMenuView {
         return self.tabView
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabMenuView: UIView {
+public class TabMenuView: UIView {
 
     /// This callback function is called when tab menu item is selected
     var pageItemPressedBlock: ((_ index: Int, _ direction: EMPageViewControllerNavigationDirection) -> Void)?
@@ -126,7 +126,7 @@ class TabMenuView: UIView {
         self.cursorView.isHidden = true
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -244,7 +244,7 @@ extension TabMenuView {
     /**
      Center the current cell after page swipe
      */
-    func scrollToHorizontalCenter() {
+    public func scrollToHorizontalCenter() {
         let indexPath = IndexPath(item: self.currentIndex, section: 0)
 
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
@@ -256,7 +256,7 @@ extension TabMenuView {
 
      - parameter index: Next Index
      */
-    func updateCurrentIndex(_ index: Int, shouldScroll: Bool, animated: Bool = false) {
+    public func updateCurrentIndex(_ index: Int, shouldScroll: Bool, animated: Bool = false) {
         deselectVisibleCells()
 
         self.currentIndex = self.isInfinite ? index + self.pageTabItemsCount : index
@@ -375,11 +375,11 @@ extension TabMenuView {
 
 extension TabMenuView: UICollectionViewDataSource {
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.isInfinite ? self.pageTabItemsCount * 3 : self.pageTabItemsCount
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabMenuItemCell.cellIdentifier, for: indexPath) as! TabMenuItemCell
 
         self.configureCell(cell, indexPath: indexPath)
@@ -399,7 +399,7 @@ extension TabMenuView: UICollectionViewDataSource {
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // FIXME: Tabs are not displayed when processing is performed during introduction display
         if let cell = cell as? TabMenuItemCell, self.layouted {
             let fixedIndex = self.isInfinite ? indexPath.item % self.pageTabItemsCount : indexPath.item
@@ -418,7 +418,7 @@ extension TabMenuView: UICollectionViewDataSource {
 // MARK: - UIScrollViewDelegate
 
 extension TabMenuView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let fixedIndex = self.isInfinite ? indexPath.item % self.pageTabItemsCount : indexPath.item
         var direction: EMPageViewControllerNavigationDirection = .forward
 
@@ -439,7 +439,7 @@ extension TabMenuView: UICollectionViewDelegate {
         self.updateCurrentIndexForTap(indexPath.item)
     }
 
-    internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.isDragging && self.isInfinite {
             self.cursorView.isHidden = true
             let indexPath = IndexPath(item: currentIndex, section: 0)
@@ -462,7 +462,7 @@ extension TabMenuView: UICollectionViewDelegate {
 
     }
 
-    internal func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         // Accept the touch event because animation is complete
         self.updateCollectionViewUserInteractionEnabled(true)
 
@@ -483,17 +483,17 @@ extension TabMenuView: UICollectionViewDelegate {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension TabMenuView: UICollectionViewDelegateFlowLayout {
-    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         self.configureCell(self.cellForSize, indexPath: indexPath)
         let size = cellForSize.sizeThatFits(CGSize(width: collectionView.bounds.width, height: self.options.menuItemSize.height))
         return size
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
 }

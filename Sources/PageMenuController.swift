@@ -30,7 +30,7 @@ open class PageMenuController: UIViewController {
     open internal(set) var menuTitles = [String]()
 
     /// Current page index
-    var currentIndex: Int? {
+    public var currentIndex: Int? {
         guard let viewController = self.pageViewController.selectedViewController else {
             return nil
         }

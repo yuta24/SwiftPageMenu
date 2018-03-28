@@ -102,7 +102,7 @@ import UIKit
 /**
  The navigation scroll direction.
  */
-@objc enum EMPageViewControllerNavigationDirection : Int {
+@objc public enum EMPageViewControllerNavigationDirection : Int {
     /// Forward direction. Can be right in a horizontal orientation or down in a vertical orientation.
     case forward
     /// Reverse direction. Can be left in a horizontal orientation or up in a vertical orientation.

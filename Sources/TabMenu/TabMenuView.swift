@@ -256,7 +256,7 @@ extension TabMenuView {
 
      - parameter index: Next Index
      */
-    public func updateCurrentIndex(_ index: Int, shouldScroll: Bool, animated: Bool = false) {
+    func updateCurrentIndex(_ index: Int, shouldScroll: Bool, animated: Bool = false) {
         deselectVisibleCells()
 
         self.currentIndex = self.isInfinite ? index + self.pageTabItemsCount : index

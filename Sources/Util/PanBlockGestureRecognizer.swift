@@ -28,7 +28,8 @@ class PanBlockGestureRecognizer: UIPanGestureRecognizer {
     var endPanLocation: CGPoint = .zero
 
     init(in view: UIView) {
-        super.init(target: self, action: #selector(self.performAction(sender:)))
+        super.init(target: nil, action: nil)
+        self.addTarget(self, action: #selector(self.performAction(sender:)))
 
         self.inView = view
         self.delegate = self.panBlockGestureRecognizerDelegate
